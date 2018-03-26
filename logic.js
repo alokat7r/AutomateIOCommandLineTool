@@ -291,9 +291,16 @@ const playGame = () => {
  */
 const fetchCommandHelp = () => {
     let fs = require('fs');
-    var readStream = fs.createReadStream(__dirname + '/commandhelp.txt');
-    readStream.pipe(process.stdin);
-}
+    try {
+        var readStream = fs.createReadStream(__dirname + '/commandhelp.txt');
+        readStream.pipe(process.stdin);
+    } catch (error) {
+        fs.readFile(__dirname + '/commandhelp.txt', (err, data) => {
+            console.log(data);
+        });
+    }
+
+};
 
 /**
  * Function to provide version
