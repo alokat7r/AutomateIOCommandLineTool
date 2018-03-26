@@ -294,6 +294,11 @@ const fetchCommandHelp = () => {
     try {
         var readStream = fs.createReadStream(__dirname + '/commandhelp.txt');
         readStream.pipe(process.stdin);
+        readStream.on('error', function(error) {
+            fs.readFile(__dirname + '/commandhelp.txt', (err, data) => {
+                console.log(data);
+            });
+        });
     } catch (error) {
         fs.readFile(__dirname + '/commandhelp.txt', (err, data) => {
             console.log(data);
